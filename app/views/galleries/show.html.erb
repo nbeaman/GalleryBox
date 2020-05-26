@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @gallery.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @gallery.description %>
+</p>
+
+<p>
+  <strong>Artist:</strong>
+  <%= @gallery.artist_id %>
+</p>
+
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Artwork Categories
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+  	<% @cats.each do |c| %>
+	    <li><%= link_to c.name, gallery_category_path(@gallery.id, c) %></li>
+	<% end %>
+  </ul>
+</div>
+
+<% @cats.each do |c| %>
+	<%= c.name %> <%= c.id %><BR>
+	<% @arts = Art.where(category_id: c.id) %>
+	<% @arts.each do |a| %>
+		<%= a.name %><BR>
+	<% end %>
+<% end %>
+
+<%= link_to 'Edit', edit_gallery_path(@gallery) %> |
+<%= link_to 'Back', galleries_path %>
+
+

@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @category.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @category.description %>
+</p>
+
+<p>
+  <strong>Gallery:</strong>
+  <%= @category.gallery_id %>
+</p>
+
+
+
+<% 
+if(@art.count > 0)  
+      @artist = Artist.where(id: @art[0].artist_id)
+      @allcats = Category.where(gallery_id: @artist[0].id)
+    end
+%>
+
+<% if(@allcats) %>
+	<div class="dropdown">
+	  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Artwork Categories
+	  <span class="caret"></span></button>
+	  <ul class="dropdown-menu">
+	  	<% @allcats.each do |c| %>
+		    <li><%= link_to c.name, gallery_category_path(@category.gallery_id, c) %></li>
+		<% end %>
+	  </ul>
+	</div>
+<% end %>
