@@ -43,6 +43,9 @@ class ArtistsController < ApplicationController
   def update
     respond_to do |format|
       if @artist.update(artist_params)
+        if(@artist.avatar)
+          @artist.avatar.attach(params[:artist][:avatar])
+        end
         format.html { redirect_to @artist, notice: 'Artist was successfully updated.' }
         format.json { render :show, status: :ok, location: @artist }
       else
@@ -70,6 +73,6 @@ class ArtistsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def artist_params
-      params.require(:artist).permit(:fullname, :statment)
+      params.require(:artist).permit(:fullname, :statment, :avatar)
     end
 end
