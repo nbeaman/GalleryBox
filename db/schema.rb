@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_26_161649) do
+ActiveRecord::Schema.define(version: 2020_05_27_140044) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_05_26_161649) do
     t.text "statment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "artist_account_type", default: "SG"
   end
 
   create_table "arts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -57,7 +58,9 @@ ActiveRecord::Schema.define(version: 2020_05_26_161649) do
     t.bigint "gallery_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "sampleart_id", null: false
     t.index ["gallery_id"], name: "index_categories_on_gallery_id"
+    t.index ["sampleart_id"], name: "index_categories_on_sampleart_id"
   end
 
   create_table "galleries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

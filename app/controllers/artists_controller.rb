@@ -10,7 +10,13 @@ class ArtistsController < ApplicationController
   # GET /artists/1
   # GET /artists/1.json
   def show
-
+    if @artist.artist_account_type == 'MG'
+      # MG means they can have multiple galleries
+      @galleries = Gallery.where(artist_id: params[:id])
+    else
+      # Then it is SG - they can have only one gallery
+      @gallery = Gallery.find_by(artist_id: params[:id])
+    end
   end
 
   # GET /artists/new

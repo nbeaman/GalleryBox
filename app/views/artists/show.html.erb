@@ -17,3 +17,27 @@
 
 <%= link_to 'Edit', edit_artist_path(@artist) %> |
 <%= link_to 'Back', artists_path %>
+<BR><BR>
+
+<% if (@gallery) %>
+	<% @cats = Category.where(gallery_id: @gallery.id) %>
+	<% @cats.each do |c| %><BR>
+		<%= link_to c.name, gallery_category_path(@artist.id, c.id) %>
+	<% end %>
+<% end %>
+
+<% if (@galleries) %>
+	<% @galleries.each do |g| %>
+		Gallery: <%= g.name %><BR>
+		<% @cats = Category.where(gallery_id: g.id) %>
+		<% @cats.each do |c| %><BR>
+			<%= link_to c.name, gallery_category_path(@artist.id, c.id) %> 
+			<% if(c.sampleart_id?) %> 
+				<%= Art.find(c.sampleart_id) %>
+			<% else %>
+				first: <%= Art.find_by(category_id: c.id) %>
+			<% end %>
+		<% end %>
+		<BR><BR>
+	<% end %>
+<% end %>
